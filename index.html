@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Portfolio 2019-2023</title>
+    <meta
+      name="description"
+      content="2019년부터 2023년까지 진행한 프로젝트를 카드형 아카이브로 정리한 포트폴리오 메인 페이지."
+    />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero" id="top">
+        <nav class="topbar" aria-label="Main">
+          <a class="brand" href="#top">Portfolio Archive</a>
+          <div class="topbar-links">
+            <a href="#archive">Projects</a>
+          </div>
+        </nav>
+
+        <div class="hero-copy">
+          <p class="eyebrow">Product Planning • UX/UI • Visual Direction</p>
+          <h1>Project UX Research</h1>
+        </div>
+      </header>
+
+      <main>
+        <section class="section" id="archive">
+          <div class="projects-grid" id="projects-grid"></div>
+        </section>
+
+        <section class="section research-section" id="ux-research">
+          <div class="section-heading">
+            <h2>UX Research</h2>
+          </div>
+          <div class="research-grid">
+            <article class="research-card">
+              <div class="research-card-visual">
+                <span class="research-chip">Research</span>
+              </div>
+              <h3>사용자 인터뷰</h3>
+              <p>정성 인터뷰 기반으로 사용자의 맥락과 문제를 구조화한 리서치 아카이브</p>
+            </article>
+            <article class="research-card">
+              <div class="research-card-visual">
+                <span class="research-chip">Research</span>
+              </div>
+              <h3>사용성 테스트</h3>
+              <p>주요 플로우를 검증하고 개선 포인트를 정리한 테스트 리포트 모음</p>
+            </article>
+            <article class="research-card">
+              <div class="research-card-visual">
+                <span class="research-chip">Research</span>
+              </div>
+              <h3>Desk Research</h3>
+              <p>시장, 경쟁 서비스, 인사이트를 비교 분석한 참고 아카이브</p>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <p class="disclaimer">
+          일부 프로젝트만 수록되어 있으며, 현재 운영 중인 서비스는 실제 라이브 화면과 상이할 수 있습니다.
+          디자인 첨부 링크는 보안 및 계약 조건에 따라 일부 대표 화면만 포함될 수 있습니다.
+        </p>
+      </footer>
+    </div>
+
+    <dialog class="project-dialog" id="project-dialog">
+      <div class="dialog-backdrop" data-close-dialog></div>
+      <div class="dialog-panel" role="document">
+        <button class="dialog-close" type="button" data-close-dialog aria-label="Close">
+          Close
+        </button>
+        <div class="dialog-visual" id="dialog-visual"></div>
+        <div class="dialog-content">
+          <div class="dialog-meta">
+            <span class="dialog-status" id="dialog-status"></span>
+            <p id="dialog-period"></p>
+          </div>
+          <h3 id="dialog-title"></h3>
+          <p class="dialog-subline" id="dialog-subline"></p>
+          <p class="dialog-role" id="dialog-role"></p>
+          <ul class="dialog-summary" id="dialog-summary"></ul>
+          <div class="dialog-actions" id="dialog-actions"></div>
+        </div>
+      </div>
+    </dialog>
+
+    <script src="./detail-media-manifest.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
