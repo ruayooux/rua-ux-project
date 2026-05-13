@@ -5,7 +5,7 @@ const projects = [
     businessType: "B2C, C2C",
     status: "운영 중",
     period: "2019. 02 ~ 2023. 11(근무 내 상시)",
-    websiteUrl: "https://www.mybaro.com/",
+    websiteUrl: "https://mybaro.com/goods?type=new",
     designUrl: "https://drive.google.com/file/d/1uN2qSNCP2a87z_kKutRW5BP5eM2Gvyzv/view?usp=drive_link",
     summary: [
       "애플 중고 제품 구매자 회원가입",
@@ -41,7 +41,7 @@ const projects = [
     businessType: "B2B",
     status: "비공개, 운영 중",
     period: "2019. 04 ~ 2020. 09",
-    websiteUrl: "https://www.ship-da.com/",
+    websiteUrl: "https://www.ship-da.com/en",
     designUrl: "https://drive.google.com/file/d/1c_f0sVKHNShAH9rfDjCUU7biItghstqo/view?usp=sharing",
     summary: [
       "수입/물류/관세사 타입에 따른 권한 조건 및 가입",
@@ -167,7 +167,7 @@ const projects = [
     status: "운영 중",
     period: "2019. 02 ~ 2021. 12",
     websiteUrl:
-      "https://apps.apple.com/kr/app/%ED%8B%B4%ED%86%A0%EB%A6%AC/id1550720119",
+      "https://play.google.com/store/apps/details?id=com.hangun.m.hangun2&hl=ko",
     designUrl: "https://drive.google.com/file/d/10IHywPtSwqUd13pjUUYAB2L0VyJ-LriM/view?usp=sharing",
     summary: [
       "수업 컨텐츠 12가지 구분하여 문제 풀이 제공 (문법, 어순, 영한 단어, 한영 단어 등)",
@@ -273,7 +273,7 @@ const figmaLogoPath = "./assets/icons/figma.png";
 const sketchLogoPath = "./assets/icons/sketch-logo.png";
 const detailMediaManifest = window.DETAIL_MEDIA_MANIFEST || {};
 
-const sortedProjects = [...projects].sort((a, b) => compareProjectsByRecent(a, b));
+const sortedProjects = [...projects].sort((a, b) => compareProjectsForArchive(a, b));
 const projectIndex = new Map(sortedProjects.map((project) => [getProjectId(project.title), project]));
 
 if (projectsGrid) {
@@ -304,16 +304,34 @@ if (dialog) {
   });
 }
 
-function compareProjectsByRecent(a, b) {
-  const periodA = parsePeriod(a.period);
-  const periodB = parsePeriod(b.period);
+function compareProjectsForArchive(a, b) {
+  const preferredOrder = [
+    "펫피(PetP)",
+    "Shipda",
+    "틴토리",
+    "마이피티(트레이너)",
+    "마이피티(회원)",
+    "BARO(매입)",
+    "BARO(판매)",
+  ];
+  const preferredIndex = new Map(preferredOrder.map((title, index) => [title, index]));
+  const orderA = preferredIndex.get(a.title);
+  const orderB = preferredIndex.get(b.title);
 
-  if (periodB.endRank !== periodA.endRank) {
-    return periodB.endRank - periodA.endRank;
+  if (orderA !== undefined || orderB !== undefined) {
+    if (orderA === undefined) {
+      return 1;
+    }
+    if (orderB === undefined) {
+      return -1;
+    }
+    return orderA - orderB;
   }
 
-  if (periodB.startRank !== periodA.startRank) {
-    return periodB.startRank - periodA.startRank;
+  const hasWebsiteA = Boolean(a.websiteUrl);
+  const hasWebsiteB = Boolean(b.websiteUrl);
+  if (hasWebsiteA !== hasWebsiteB) {
+    return hasWebsiteA ? -1 : 1;
   }
 
   return a.title.localeCompare(b.title, "ko");
@@ -356,6 +374,9 @@ function buildVisual(project, index, compact = false) {
   wrapper.className = "card-visual";
   if (project.thumbnailPath) {
     wrapper.classList.add("has-thumbnail");
+    if (shouldApplyThumbnailOverlay(project)) {
+      wrapper.classList.add("has-thumbnail-overlay");
+    }
     if (hasLightThumbnail(project)) {
       wrapper.classList.add("has-light-thumbnail");
     }
@@ -390,6 +411,14 @@ function renderProjects() {
   projectsGrid.innerHTML = "";
 
   sortedProjects.forEach((project, projectIndex) => {
+    if (
+      project.title === "디어메이트" ||
+      project.title === "소노바" ||
+      project.title === "Series Ei8ht"
+    ) {
+      return;
+    }
+
     const card = document.createElement("article");
     card.className = "project-card";
     card.classList.add(cardSizeClass(projectIndex));
@@ -470,12 +499,7 @@ function renderProjectDetail() {
 
   const actions = document.createElement("div");
   actions.className = "detail-actions";
-  if (project.websiteUrl) {
-    actions.append(createDetailAction(project.websiteUrl, "Website"));
-  }
-  if (project.designUrl) {
-    actions.append(createDetailAction(project.designUrl, "Design file"));
-  }
+  actions.append(createDetailAction(project.websiteUrl, "서비스 바로가기"));
 
   const mediaSection = createDetailMediaSection(project);
 
@@ -484,7 +508,6 @@ function renderProjectDetail() {
   const shell = document.createElement("section");
   shell.className = "detail-shell";
   shell.innerHTML = `
-    <a class="detail-back-link" href="./index.html#archive">Back to archive</a>
     <div class="detail-header">
       <p class="eyebrow">Project Detail</p>
       <h1>${project.title}</h1>
@@ -496,8 +519,9 @@ function renderProjectDetail() {
           <span class="status-badge">${project.businessType}</span>
           <span class="detail-platform">${getPlatformMetaLabel(project)}</span>
         </div>
-        <p class="detail-period">${formatPeriod(project.period)}</p>
-        <p class="detail-role-text">${project.role.replace(/\s*,\s*/g, ", ")}</p>
+        <p class="detail-service-name"><span class="detail-meta-label">서비스명:</span> ${getProjectServiceName(project)}</p>
+        <p class="detail-scope"><span class="detail-meta-label">프로젝트 범위:</span> ${getProjectScope(project)}</p>
+        <p class="detail-period"><span class="detail-meta-label">참여 기간:</span> ${formatPeriod(project.period)}</p>
       </div>
     </div>
   `;
@@ -510,6 +534,41 @@ function renderProjectDetail() {
   projectDetail.append(shell);
 
   document.title = `${project.title} | Project Archive`;
+}
+
+function getProjectScope(project) {
+  const scopeOverrides = {
+    "BARO(판매)": "운영 유지 - 프로젝트 별 기획/디자인 참여",
+    "BARO(매입)": "운영 유지 - 프로젝트 별 기획/디자인 참여",
+    "DOSO market": "서비스 기획 - MVP - 디자인",
+    틴토리: "기능별 기획 - UX 화면 설계",
+    "마이피티(트레이너)": "서비스 기획 - 디자인",
+    "마이피티(회원)": "서비스 기획 - 디자인",
+    믿고맡겨: "서비스 기획 - MVP - 디자인",
+    Shipda: "서비스 기획 - MVP - 디자인 및 기능 고도화",
+    "God Teacher": "서비스 기획 - 기능별 기획 및 화면 설계",
+    "펫피(PetP)": "MVP - 기능 고도화 및 디자인",
+    대학필기: "MVP - 디자인",
+  };
+
+  return scopeOverrides[project.title] || "프로젝트 별 기획/디자인 참여";
+}
+
+function getProjectServiceName(project) {
+  const serviceNames = {
+    "BARO(판매)": "중고 맥북 거래(판매) 플랫폼",
+    "BARO(매입)": "중고 맥북 거래(매입) 플랫폼",
+    "DOSO market": "철강/건자재 최저가 거래 플랫폼",
+    틴토리: "초중고 영어학원/문제풀이 전문 앱",
+    "마이피티(트레이너)": "PT 회원 스케줄 관리 앱",
+    "마이피티(회원)": "PT 스케줄 관리 앱",
+    "God Teacher": "수능 영어 기출 문제 풀이 제작 앱(교사, 강사용)",
+    믿고맡겨: "짐보관/관리/의류 스타일링 관리 서비스",
+    Shipda: "수출입 포워딩 운임 실시간 조회, 견적 플랫폼",
+    "펫피(PetP)": "포인트 적립형 강아지 산책 앱",
+  };
+
+  return serviceNames[project.title] || project.title;
 }
 
 function openDialog(project) {
@@ -555,10 +614,23 @@ function createDialogLink(href, label, primary = false) {
 function createDetailAction(href, label) {
   const anchor = document.createElement("a");
   anchor.className = "detail-action";
-  anchor.href = href;
-  anchor.target = "_blank";
-  anchor.rel = "noreferrer";
   anchor.textContent = label;
+  if (href) {
+    anchor.href = href;
+    anchor.target = "_blank";
+    anchor.rel = "noreferrer";
+    anchor.addEventListener("click", (event) => {
+      event.preventDefault();
+      const opened = window.open(href, "_blank", "noopener,noreferrer");
+      if (!opened) {
+        window.location.href = href;
+      }
+    });
+  } else {
+    anchor.classList.add("is-disabled");
+    anchor.setAttribute("aria-disabled", "true");
+    anchor.tabIndex = -1;
+  }
   return anchor;
 }
 
@@ -593,7 +665,9 @@ function createDetailMediaSection(project) {
   const track = document.createElement("div");
   track.className = "detail-media-track";
 
-  items.forEach((image, index) => {
+  const slides = groupDetailMediaItems(project, items);
+
+  slides.forEach((slideItems, index) => {
     const figure = document.createElement("figure");
     figure.className = "detail-media-item";
     figure.dataset.index = String(index);
@@ -601,17 +675,58 @@ function createDetailMediaSection(project) {
       figure.classList.add("is-active");
     }
 
-    const media = createDetailMediaAsset(project, image, index);
-    figure.append(media);
+    if (slideItems.length > 1) {
+      figure.classList.add("is-grouped");
+      if (project.title === "펫피(PetP)") {
+        figure.classList.add("is-petp-grouped");
+      }
+      const mediaGrid = document.createElement("div");
+      mediaGrid.className = "detail-media-item-grid";
+      slideItems.forEach((image, imageIndex) => {
+        const media = createDetailMediaAsset(project, image, imageIndex);
+        mediaGrid.append(media);
+      });
+      figure.append(mediaGrid);
+    } else {
+      const media = createDetailMediaAsset(project, slideItems[0], index);
+      figure.append(media);
+    }
+
     track.append(figure);
   });
 
-  const controls = createDetailMediaControls(track, items.length);
+  const controls = createDetailMediaControls(track, slides.length);
   frame.append(track, controls.buttons);
   grid.append(frame, controls.counter);
   header.append(title, controls.headerButtons);
   section.append(header, grid);
   return section;
+}
+
+function groupDetailMediaItems(project, items) {
+  const groupSize = getDetailMediaGroupSize(project);
+  if (groupSize <= 1) {
+    return items.map((item) => [item]);
+  }
+
+  const slides = [];
+  for (let index = 0; index < items.length; index += groupSize) {
+    slides.push(items.slice(index, index + groupSize));
+  }
+
+  return slides;
+}
+
+function getDetailMediaGroupSize(project) {
+  const groupedProjects = new Set([
+    "틴토리",
+    "마이피티(트레이너)",
+    "마이피티(회원)",
+    "믿고맡겨",
+    "펫피(PetP)",
+    "대학필기",
+  ]);
+  return groupedProjects.has(project.title) ? 3 : 1;
 }
 
 function getDetailMediaItems(project) {
@@ -856,6 +971,18 @@ function hasLightThumbnail(project) {
   ]);
 
   return lightThumbnailProjects.has(project.title);
+}
+
+function shouldApplyThumbnailOverlay(project) {
+  const overlayProjects = new Set([
+    "소노바",
+    "DOSO market",
+    "Shipda",
+    "Series Ei8ht",
+    "디어메이트",
+  ]);
+
+  return overlayProjects.has(project.title);
 }
 
 function getVisualPlatformLabels(project, compact = false) {

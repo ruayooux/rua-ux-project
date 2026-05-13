@@ -15,12 +15,34 @@ const detailBaseDir = path.join(projectRoot, "assets/detail/page");
 const generatedBaseDir = path.join(projectRoot, "assets/detail/generated");
 const manifestPath = path.join(projectRoot, "detail-media-manifest.js");
 const supportedImageExtensions = new Set([".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg"]);
-const targetProjects = new Set(["BARO(판매)", "BARO(매입)", "DOSO market"]);
+const targetProjects = new Set([
+  "BARO(판매)",
+  "BARO(매입)",
+  "DOSO market",
+  "Shipda",
+  "펫피(PetP)",
+  "God Teacher",
+  "대학필기",
+  "디어메이트",
+  "마이피티(트레이너)",
+  "마이피티(회원)",
+  "믿고맡겨",
+  "틴토리",
+]);
 
 const projectFolderAliases = new Map([
   ["BARO(판매)", "BARO(판매)"],
   ["BARO(매입)", "BARO(매입)"],
   ["DOSO market", "DOSO market"],
+  ["God Teacher", "God Teacher"],
+  ["Shipda", "Shipda"],
+  ["대학필기", "대학필기"],
+  ["디어메이트", "디어메이트"],
+  ["믿고맡겨", "믿고맡겨"],
+  ["펫피(PetP)", "펫피(PetP)"],
+  ["마이피티(트레이너)", "마이피티(트레이너)"],
+  ["마이피티(회원)", "마이피티(회원)"],
+  ["틴토리", "틴토리"],
 ]);
 
 await fs.mkdir(generatedBaseDir, { recursive: true });
@@ -81,13 +103,15 @@ async function walk(dirPath, prefix = "") {
     }
 
     const ext = path.extname(dirent.name).toLowerCase();
-    if (supportedImageExtensions.has(ext)) {
-      results.push({ absolutePath, relativePath, kind: "image" });
+    const isPdfFile = ext === ".pdf" || (await isPdfByHeader(absolutePath));
+
+    if (isPdfFile) {
+      results.push({ absolutePath, relativePath, kind: "pdf" });
       continue;
     }
 
-    if (ext === ".pdf" || (await isPdfByHeader(absolutePath))) {
-      results.push({ absolutePath, relativePath, kind: "pdf" });
+    if (supportedImageExtensions.has(ext)) {
+      results.push({ absolutePath, relativePath, kind: "image" });
     }
   }
 
