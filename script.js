@@ -15,8 +15,7 @@ const projects = [
     ],
     role: "서비스 기획, 화면 설계, GUI-UI, 디자인 총괄",
     designTool: "figma",
-    thumbnailPath:
-      "/Users/temprua/Desktop/Documents/포트폴리오 자료/프로젝트 썸네일 img/바로판매매입.png",
+    thumbnailPath: "./assets/thumbnails/baro-buy-sell.png",
   },
   {
     title: "BARO(매입)",
@@ -34,8 +33,7 @@ const projects = [
     ],
     role: "서비스 기획, 화면 설계, GUI-UI, 디자인 총괄",
     designTool: "figma",
-    thumbnailPath:
-      "/Users/temprua/Desktop/Documents/포트폴리오 자료/프로젝트 썸네일 img/바로판매매입.png",
+    thumbnailPath: "./assets/thumbnails/baro-buy-sell.png",
   },
   {
     title: "Shipda",
@@ -52,8 +50,7 @@ const projects = [
     ],
     role: "서비스 기획, 화면 설계, GUI-UI, UX 디자인 총괄",
     designTool: "figma",
-    thumbnailPath:
-      "/Users/temprua/Desktop/Documents/포트폴리오 자료/프로젝트 썸네일 img/쉽다.png",
+    thumbnailPath: "./assets/thumbnails/shipda.png",
   },
   {
     title: "DOSO market",
@@ -72,8 +69,7 @@ const projects = [
     ],
     role: "화면 기획/설계, GUI-UI  디자인 총괄",
     designTool: "figma",
-    thumbnailPath:
-      "/Users/temprua/Desktop/Documents/포트폴리오 자료/프로젝트 썸네일 img/도소마켓.png",
+    thumbnailPath: "./assets/thumbnails/doso-market.png",
   },
   {
     title: "Series Ei8ht",
@@ -92,8 +88,7 @@ const projects = [
     ],
     role: "서비스 기획, 화면 설계, GUI-UI 디자인 총괄",
     designTool: "figma",
-    thumbnailPath:
-      "/Users/temprua/Desktop/Documents/포트폴리오 자료/프로젝트 썸네일 img/시리즈에잇.png",
+    thumbnailPath: "./assets/thumbnails/series-eight.png",
   },
   {
     title: "펫피(PetP)",
@@ -112,8 +107,7 @@ const projects = [
     ],
     role: "화면기획/설계, GUI-UI 디자인 총괄",
     designTool: "figma",
-    thumbnailPath:
-      "/Users/temprua/Desktop/Documents/포트폴리오 자료/프로젝트 썸네일 img/펫피.png",
+    thumbnailPath: "./assets/thumbnails/petp.png",
   },
   {
     title: "소노바",
@@ -130,8 +124,7 @@ const projects = [
     ],
     role: "화면기획/설계, GUI-UI 디자인 총괄",
     designTool: "figma",
-    thumbnailPath:
-      "/Users/temprua/Desktop/Documents/포트폴리오 자료/프로젝트 썸네일 img/소노바.png",
+    thumbnailPath: "./assets/thumbnails/sonova.png",
   },
   {
     title: "마이피티(회원)",
@@ -148,8 +141,7 @@ const projects = [
     ],
     role: "(개인 외주 작업) App BI, 화면기획/설계, GUI-UI, UX 디자인 총괄",
     designTool: "figma",
-    thumbnailPath:
-      "/Users/temprua/Desktop/Documents/포트폴리오 자료/프로젝트 썸네일 img/마이피티회원.png",
+    thumbnailPath: "./assets/thumbnails/mypt-user.png",
   },
   {
     title: "마이피티(트레이너)",
@@ -166,8 +158,7 @@ const projects = [
     ],
     role: "(개인 외주 작업) App BI, 화면기획/설계, GUI-UI, UX 디자인 총괄",
     designTool: "figma",
-    thumbnailPath:
-      "/Users/temprua/Desktop/Documents/포트폴리오 자료/프로젝트 썸네일 img/마이피티트레이너.png",
+    thumbnailPath: "./assets/thumbnails/mypt-trainer.png",
   },
   {
     title: "틴토리",
@@ -185,8 +176,7 @@ const projects = [
     ],
     role: "App BI, 기획 및 화면 설계, GUI-UI, UX 디자인 총괄",
     designTool: "figma",
-    thumbnailPath:
-      "/Users/temprua/Desktop/Documents/포트폴리오 자료/프로젝트 썸네일 img/틴토리.png",
+    thumbnailPath: "./assets/thumbnails/tintory.png",
   },
   {
     title: "디어메이트",
@@ -203,8 +193,7 @@ const projects = [
     ],
     role: "화면 설계, GUI-UI 디자인 총괄",
     designTool: "figma",
-    thumbnailPath:
-      "/Users/temprua/Desktop/Documents/포트폴리오 자료/프로젝트 썸네일 img/디어메이트.png",
+    thumbnailPath: "./assets/thumbnails/dearmate.png",
   },
   {
     title: "믿고맡겨",
@@ -222,8 +211,7 @@ const projects = [
     ],
     role: "App BI, 기획 및 화면 설계, GUI-UI 디자인 총괄",
     designTool: "figma",
-    thumbnailPath:
-      "/Users/temprua/Desktop/Documents/포트폴리오 자료/프로젝트 썸네일 img/믿고맡겨.png",
+    thumbnailPath: "./assets/thumbnails/midgo.png",
   },
   {
     title: "God Teacher",
@@ -241,8 +229,7 @@ const projects = [
     ],
     role: "화면 기획/설계, GUI-UI, UX디자인 총괄",
     designTool: "sketch",
-    thumbnailPath:
-      "/Users/temprua/Desktop/Documents/포트폴리오 자료/프로젝트 썸네일 img/갓티쳐.png",
+    thumbnailPath: "./assets/thumbnails/god-teacher.png",
   },
   {
     title: "대학필기",
@@ -259,8 +246,7 @@ const projects = [
     ],
     role: "화면 기획/설계, GUI-UI, UX디자인 총괄",
     designTool: "figma",
-    thumbnailPath:
-      "/Users/temprua/Desktop/Documents/포트폴리오 자료/프로젝트 썸네일 img/대학필기.png",
+    thumbnailPath: "./assets/thumbnails/college-note.png",
   },
 ];
 
@@ -283,10 +269,8 @@ const dialogRole = document.getElementById("dialog-role");
 const dialogSummary = document.getElementById("dialog-summary");
 const dialogActions = document.getElementById("dialog-actions");
 const projectDetail = document.getElementById("project-detail");
-const figmaLogoPath =
-  "file:///Users/temprua/Desktop/Documents/%ED%8F%AC%ED%8A%B8%ED%8F%B4%EB%A6%AC%EC%98%A4%20%EC%9E%90%EB%A3%8C/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EC%8D%B8%EB%84%A4%EC%9D%BC%20img/%E1%84%91%E1%85%B5%E1%84%80%E1%85%B3%E1%84%86%E1%85%A1%20%E1%84%85%E1%85%A9%E1%84%80%E1%85%A9.png";
-const sketchLogoPath =
-  "file:///Users/temprua/Desktop/Documents/%ED%8F%AC%ED%8A%B8%ED%8F%B4%EB%A6%AC%EC%98%A4%20%EC%9E%90%EB%A3%8C/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EC%8D%B8%EB%84%A4%EC%9D%BC%20img/Sketch_Logo.svg.png";
+const figmaLogoPath = "./assets/icons/figma.png";
+const sketchLogoPath = "./assets/icons/sketch-logo.png";
 const detailMediaManifest = window.DETAIL_MEDIA_MANIFEST || {};
 
 const sortedProjects = [...projects].sort((a, b) => compareProjectsByRecent(a, b));
@@ -377,7 +361,7 @@ function buildVisual(project, index, compact = false) {
     }
     const image = document.createElement("img");
     image.className = "thumbnail-image";
-    image.src = `file://${encodeURI(project.thumbnailPath)}`;
+    image.src = toAssetSrc(project.thumbnailPath);
     image.alt = `${project.title} thumbnail`;
     wrapper.append(image);
   } else {
